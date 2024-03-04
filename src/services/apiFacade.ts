@@ -23,7 +23,7 @@ interface Info {
 }
 
 let categories: Array<string> = [];
-let recipes: Array<Recipe> = [];
+const recipes: Array<Recipe> = [];
 
 async function getCategories(): Promise<Array<string>> {
   if (categories.length > 0) return [...categories];
@@ -32,7 +32,7 @@ async function getCategories(): Promise<Array<string>> {
   return categories;
 }
 async function getRecipes(category: string | null): Promise<Array<Recipe>> {
-  //if (recipes.length > 0) return [...recipes];
+  if (recipes.length > 0) return [...recipes];
   console.log("category", category);
   const queryParams = category ? "?category=" + category : "";
   return fetch(RECIPE_URL + queryParams).then(handleHttpErrors);
