@@ -4,16 +4,21 @@
  * @param body  The request body (only relevant for POST and PUT)
  * @returns
  */
-export function makeOptions(method: string, body: object | null): RequestInit {
+export function makeOptions(method: string, body: object | null, addToken?: boolean): RequestInit {
   const opts: RequestInit = {
     method: method,
     headers: {
       "Content-type": "application/json",
       Accept: "application/json",
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
   if (body) {
     opts.body = JSON.stringify(body);
+  }
+  if (addToken) {
+    //@ts-ignore
+    opts.headers["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
   }
   return opts;
 }
@@ -25,9 +30,7 @@ export function makeOptions(method: string, body: object | null): RequestInit {
 export async function handleHttpErrors(res: Response) {
   if (!res.ok) {
     const errorResponse = await res.json();
-    const msg = errorResponse.message
-      ? errorResponse.message
-      : "No details provided";
+    const msg = errorResponse.message ? errorResponse.message : "No details provided";
     throw new Error(msg);
   }
   return res.json();
