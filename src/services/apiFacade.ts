@@ -28,6 +28,8 @@ interface Info {
 let categories: Array<string> = [];
 //const recipes: Array<Recipe> = [];
 
+//let info: Info | null = null;
+
 async function getCategories(): Promise<Array<string>> {
   //if (categories.length > 0) return [...categories];
   const res = await fetch(CATEGORIES_URL).then(handleHttpErrors);
@@ -39,7 +41,6 @@ async function addCategory(newCategory: Category): Promise<Category> {
   const options = makeOptions(method, newCategory, true);
   const URL = newCategory.id ? `${CATEGORIES_URL}/${newCategory.id}` : CATEGORIES_URL;
   return fetch(URL, options).then(handleHttpErrors);
-
 }
 async function getRecipes(category: string | null): Promise<Array<Recipe>> {
   //if (recipes.length > 0) return [...recipes];
@@ -63,6 +64,7 @@ async function deleteRecipe(id: number): Promise<Recipe> {
 }
 
 async function getInfo(): Promise<Info> {
+  //if (info) return info ;
   return fetch(INFO_URL).then(handleHttpErrors);
 }
 
