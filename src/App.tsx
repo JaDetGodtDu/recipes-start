@@ -9,8 +9,8 @@ import Login from "./security/Login";
 import Logout from "./security/Logout";
 import Layout from "./Layout";
 import Home from "./Home";
-import "./App.css";
 import CategoryForm from "./recipes/CategoryForm";
+import "./App.css";
 
 export default function App() {
   //const auth = useAuth();
@@ -19,27 +19,29 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/categories/" element={<Categories />} />
-        <Route path="/recipes" element={<RecipesLayout/>}>
+        <Route path="/recipes" element={<RecipesLayout />}>
           {/*<Route index element={<Recipes />} />*/}
           <Route path=":id" element={<Recipe />} />
         </Route>
         {/* <Route path="/add" element={<RecipeForm />} /> */}
-        <Route path="/add"
+        <Route
+          path="/add"
           element={
             <RequireAuth roles={["USER"]}>
-               <RecipeForm />
+              <RecipeForm />
             </RequireAuth>
           }
         />
-        <Route path="/addCategory"
+        <Route
+          path="/addCategory"
           element={
             <RequireAuth roles={["ADMIN"]}>
-               <CategoryForm />
+              <CategoryForm />
             </RequireAuth>
           }
         />
         <Route path="/login" element={<Login />} />
-        { <Route path="/logout" element={<Logout />} /> }
+        {<Route path="/logout" element={<Logout />} />}
         <Route path="*" element={<h2>Not Found</h2>} />
       </Routes>
     </Layout>
